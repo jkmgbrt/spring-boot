@@ -1,8 +1,8 @@
-Sample Spring Boot 3 application for highlighting an issue with Micrometer Tracing traceId:s not being re-generated when used in a Spring for GraphQL app. The issue is that the same traceId is used for separate requests handled by the same Tomcat worker thread (for illustration purposes, server.tomcat.threads.max is set to 1). For comparison, the same issue does not occur in a Spring Web RESTful app.
+Sample Spring Boot 3 application for highlighting an issue with Micrometer Tracing and Open Zipkin Brave when used in a Spring for GraphQL app. The issue is that the same traceId ends up being used for all requests handled by the same Tomcat worker thread (for illustrative purposes, server.tomcat.threads.max is set to 1). For comparison, the same issue does not occur in a Spring Web RESTful app.
 
 First, to illustrate the expected behaviour when calling a RESTful endpoint:
 1. Start **RestApplication.java** (listens on port 8082)
-2. Send multiple GET requests to http://localhost:8082/trace-id, which returns the traceId used for the request and also logs a simple message in the console together with traceId and spanId from MDC.
+2. Send multiple GET requests to http://localhost:8082/trace-id, which returns the traceId used for the request and also logs a simple message in the console together with traceId and spanId from MDC
 3. The traceId used is unique for each request handled by the same thread, as expected
 
 Sample log:
@@ -13,7 +13,7 @@ Sample log:
 ```
 Now, to illustrate the faulty behaviour when sending a GraphQL query:
 1. Start **GraphQlApplication.java** (listens on port 8081)
-2. Send multiple GraphQL queries (see below) to http://localhost:8081/graphql, which returns the traceId used for the request and also logs a simple message in the console together with traceId and spanId from MDC.
+2. Send multiple requests using the GraphQL query below to http://localhost:8081/graphql, which returns the traceId used for the request and also logs a simple message in the console together with traceId and spanId from MDC
 3. The traceId used is the same for each request handled by the same thread, expected is that traceId should be unique
 
 Sample log:
