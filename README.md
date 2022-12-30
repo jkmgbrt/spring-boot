@@ -1,4 +1,4 @@
-Sample Spring Boot 3 application for highlighting an issue with Micrometer Tracing traceId:s not being re-generated when used in Spring for GraphQL app. The issue is that the same traceId is used for separate requests handled by the same Tomcat worker thread (for illustration purposes, server.tomcat.threads.max is set to 1). For comparison, the same issue does not occur in a Spring Web RESTful app.
+Sample Spring Boot 3 application for highlighting an issue with Micrometer Tracing traceId:s not being re-generated when used in a Spring for GraphQL app. The issue is that the same traceId is used for separate requests handled by the same Tomcat worker thread (for illustration purposes, server.tomcat.threads.max is set to 1). For comparison, the same issue does not occur in a Spring Web RESTful app.
 
 First, to illustrate the expected behaviour when calling a RESTful endpoint:
 1. Start **RestApplication.java** (listens on port 8082)
