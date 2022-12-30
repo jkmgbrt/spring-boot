@@ -1,0 +1,9 @@
+server:
+  port: 8081
+  tomcat:
+    threads:
+      max: 1
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS XXX} [%thread] [%mdc] %-5level %logger{20} - %msg%n"
